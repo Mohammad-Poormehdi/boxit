@@ -60,6 +60,7 @@ const LoginModal = () => {
             label="نام کاربری"
           />
           <Input
+            type="password"
             {...register("password", { required: "این فیلد الزامی است" })}
             label="رمز عبور"
           />
