@@ -2,6 +2,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/lib/prismadb";
 import bcrypt from "bcrypt";
 import { AuthOptions } from "next-auth";
+import { JWT } from "next-auth/jwt";
 
 const authOptions: AuthOptions = {
   providers: [
@@ -30,10 +31,12 @@ const authOptions: AuthOptions = {
         if (!comparedPassword) {
           throw new Error("Invalid password");
         }
+
         return user;
       },
     }),
   ],
+
   pages: { signIn: "/" },
   debug: process.env.NODE_ENV === "development",
   session: { strategy: "jwt" },

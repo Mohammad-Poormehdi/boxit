@@ -29,17 +29,16 @@ const LoginModal = () => {
     setIsLoading(true);
     signIn("credentials", { ...data, redirect: false })
       .then((callback) => {
-        if (callback?.ok) {
+        if (callback?.error) {
+          toast.error("نام کاربری یا کلمه عبور اشتباه است");
+        } else {
           toast.success("ورود موفقیت آمیز بود");
           router.refresh();
           loginModal.onClose();
-          if (callback.error) {
-            toast.error(callback.error);
-          }
         }
       })
-      .catch((error) => {
-        toast.error(error);
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 

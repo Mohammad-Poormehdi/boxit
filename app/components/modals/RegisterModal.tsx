@@ -10,6 +10,7 @@ import useRegisterModal from "@/app/hooks/useRegisterModal";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 const RegisterModal = () => {
   const {
@@ -33,10 +34,13 @@ const RegisterModal = () => {
         firstname: data.firstname,
         lastname: data.lastname,
         password: data.password1,
+        email: data.email,
       })
       .then(() => {
-        // TODO:sign in
-        toast.success("حساب کاربری ایجاد شد");
+        signIn("credentials", { redirect: false }).then(() => {
+          toast.success("حساب کاربری ایجاد شد");
+          registerModal.onClose();
+        });
       })
       .catch((error: any) => {
         toast.error("Internal Server Error");
@@ -64,6 +68,11 @@ const RegisterModal = () => {
         <Input
           {...register("lastname", { required: "این فیلد الزامی است" })}
           label="نام خانوادگی"
+        />
+        <Input
+          label="ایمیل"
+          type="email"
+          {...register("email", { required: "ایمیل الزامی است" })}
         />
         <Input
           {...register("username", { required: "این فیلد الزامی است" })}
