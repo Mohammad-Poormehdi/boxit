@@ -1,6 +1,5 @@
 "use client";
 
-import * as Dialog from "@radix-ui/react-dialog";
 import Modal from "./Modal";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Input from "../Input";
